@@ -17,7 +17,9 @@ jobs:
       run: echo "Needs tests before I can do this"
 
     - name: Delete tag
-      run: git tag -d v.Latest
+      run: |
+        git tag -d v.Latest
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       continue-on-error: true
 
     - name: Public v.Latest tag
