@@ -1,3 +1,8 @@
+/* Remember to tag releases:
+    git tag -a -m "Project Summary Action skeleton" v1
+    git push --follow-tags
+*/
+
 const core = require('@actions/core');
 const github = require('@actions/github');
 
