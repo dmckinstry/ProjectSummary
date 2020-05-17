@@ -16,13 +16,11 @@ try {
   console.log(`Repo URL: ${repoUrl}`);
   console.log(`Project name: ${project}`);
 
-  var summary = projectFunctions.getProjectStats(
-    org, login, repo, project, token
-  );
+  var summary = projectFunctions.getProjectStats(org, login, repo, project, token);
   core.setOutput("summary", summary);
   
   // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
+  const payload = JSON.stringify(github.context.payload, undefined, 2);
   console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
