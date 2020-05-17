@@ -1,13 +1,26 @@
 name: 'Project Summary'
-description: 'Greet someone and record the time'
+description: 'Queries summary card counts from a GitHub Project.'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  org: # GitHub Org
+    description: GitHub organization hosting the project; either org or login is required
+    required: false
+  login: # GitHub Login
+    description: GitHub login hosting the project; either org or login is required
+    required: false
+  repo: # GitHub Repo
+    description: GitHub repo hosting the project
     required: true
-    default: 'World'
+  repo: # GitHub Project
+    description: GitHub project name to query
+    required: true
+  token: # Security token
+    description:  Security token used to access the GitHub GraphQL and perform the queries
+    required: true
+
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  summary : # Data structure including resulting per-column card counts
+    description: Per-column card counts (Totals, per-user and per-label).
+
 runs:
   using: 'node14'
   main: 'src/index.js'

@@ -12,7 +12,7 @@ jobs:
     # - uses: actions/checkout@v2
     - name: Hello world action step
       id: hello
-      uses: dmckinstry/ProjectSummary@v1
+      uses: dmckinstry/ProjectSummary@V.Latest
       with:
         who-to-greet: 'Dave'
     # Use the output from the `hello` step
