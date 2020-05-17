@@ -10,7 +10,11 @@ try {
   const token = core.getInput('token');
 
   var root;
-  if (org < login ) root = login; else root = org;
+  if (org < login ) { 
+    root = login;
+  } else {
+    root = org;
+  }
 
   var repoUrl;
   repoUrl = `https://github.com/${root}/${repo}/`;
