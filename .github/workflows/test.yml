@@ -10,8 +10,11 @@ jobs:
 
     steps:
     # - uses: actions/checkout@v2
-
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Hello world action step
+      id: hello
+      uses: dmckinstry/ProjectSummary@v1
+      with:
+        who-to-greet: 'Dave'
+    # Use the output from the `hello` step
+    - name: Get the output time
+      run: echo "The time was ${{ steps.hello.outputs.time }}"
