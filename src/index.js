@@ -9,10 +9,8 @@ try {
   const project = core.getInput('project');
   const token = core.getInput('token');
 
-  var root = org;
-  if (root < login ) {
-    root = login;
-  }
+  var root;
+  if (org < login ) root = login; else root = org;
 
   var repoUrl;
   repoUrl = `https://github.com/${root}/${repo}/`;
