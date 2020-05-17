@@ -5,9 +5,6 @@ function getProjectStats(org, user, repo, project, token) {
   return "TBD";
 }
 
-const _getProjectStats = getProjectStats;
-export { _getProjectStats as getProjectStats }
-
 /*
 **
 */
@@ -21,5 +18,8 @@ function getRoot(organization, user) {
   return results;
 }
 
+const _getProjectStats = getProjectStats;
 const _getRoot = getRoot;
+
+export { _getProjectStats as getProjectStats }
 export { _getRoot as getRoot };
