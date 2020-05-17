@@ -12,7 +12,7 @@ jobs:
     # - uses: actions/checkout@v2
     - name: Analyze project
       id: analyze
-      uses: dmckinstry/ProjectSummary@V.Latest
+      uses: dmckinstry/ProjectSummary@c.vi
       with:
         login: dmckinstry
         repo: ProjectSummary
