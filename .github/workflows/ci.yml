@@ -24,5 +24,7 @@ jobs:
 
     - name: Public v.Latest tag
       run: |
+        git config user.email ${{ secrect.email }}
+        git config user.name ${{ secrets.login }}
         git tag -a -m "Project Summary Action CI release" v.Latest
         git push --follow-tags
