@@ -10,7 +10,7 @@ inputs:
   repo: # GitHub Repo
     description: GitHub repo hosting the project
     required: true
-  repo: # GitHub Project
+  project: # GitHub Project
     description: GitHub project name to query
     required: true
   token: # Security token
@@ -22,5 +22,5 @@ outputs:
     description: Per-column card counts (Totals, per-user and per-label).
 
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'src/index.js'
