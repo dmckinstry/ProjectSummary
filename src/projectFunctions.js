@@ -18,8 +18,5 @@ function getRoot(organization, user) {
   return results;
 }
 
-const _getProjectStats = getProjectStats;
-const _getRoot = getRoot;
-
-export { _getProjectStats as getProjectStats }
-export { _getRoot as getRoot };
+module.exports.getProjectStats = getProjectStats;
+module.exports.getRoot = getRoot ;
