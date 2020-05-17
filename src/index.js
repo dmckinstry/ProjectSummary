@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const projectFunctions = require("./projectFunctions");
 
 try {
   // Read all input parameters
@@ -9,22 +10,15 @@ try {
   const project = core.getInput('project');
   const token = core.getInput('token');
 
-  var root;
-  if (org < login ) { 
-    root = login;
-  } else {
-    root = org;
-  }
-
-  var repoUrl;
-  repoUrl = `https://github.com/${root}/${repo}/`;
+  var root = projectFunctions.getRoot(org, login);
+  var repoUrl = `https://github.com/${root}/${repo}/`;
 
   console.log(`Repo URL: ${repoUrl}`);
   console.log(`Project name: ${project}`);
 
-  // Stub output for now
-  var summary;
-  summary = "TBD";
+  var summary = projectFunctions.getProjectStats(
+    org, login, repo, project, token
+  );
   core.setOutput("summary", summary);
   
   // Get the JSON webhook payload for the event that triggered the workflow
