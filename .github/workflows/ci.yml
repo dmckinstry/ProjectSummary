@@ -9,10 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Test action code
     steps:
     - uses: actions/checkout@v2
-
     - name: Stub
       run: echo "Needs tests before I can do this"
 
@@ -20,8 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Replace and public the V.Latest label
     steps:
-    - name: 
+    - name: Delete tag
+      run: git tag -d v.Latest
+      continue-on-error: true
+
+    - name: Public v.Latest tag
       run: |
-        git tag -d v.Latest
         git tag -a -m "Project Summary Action CI release" v.Latest
         git push --follow-tags
