@@ -15,7 +15,7 @@ try {
   var repoUrl;
   repoUrl = `https://github.com/${root}/${repo}/`;
 
-  console.log(`Repo URL: ${projectUrl}`);
+  console.log(`Repo URL: ${repoUrl}`);
   console.log(`Project name: ${project}`);
 
   // Stub output for now
