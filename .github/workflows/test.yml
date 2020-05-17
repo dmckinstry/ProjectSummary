@@ -10,11 +10,12 @@ jobs:
 
     steps:
     # - uses: actions/checkout@v2
-    - name: Hello world action step
+    - name: Analyze project
       id: hello
       uses: dmckinstry/ProjectSummary@V.Latest
       with:
-        who-to-greet: 'Dave'
+        
+
     # Use the output from the `hello` step
     - name: Get the output time
       run: echo "The time was ${{ steps.hello.outputs.time }}"

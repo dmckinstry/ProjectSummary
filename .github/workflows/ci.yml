@@ -13,13 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Stub
+    - name: Run unit tests
       run: echo "Needs tests before I can do this"
 
     - name: Delete tag
-      run: |
-        # git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        git tag -d v.Latest
+      run: git tag -d v.Latest
       continue-on-error: true
 
     - name: Public v.Latest tag

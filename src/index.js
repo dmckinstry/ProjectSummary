@@ -1,18 +1,29 @@
-/* Remember to tag releases:
-    git tag -a -m "Project Summary Action skeleton" v1
-    git push --follow-tags
-*/
-
 const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
+  // Read all input parameters
+  const org = core.getInput('org');
+  const login = core.getInput('login');
+  const repo = core.getInput('repo');
+  const project = core.getInput('project');
+  const token = core.getInput('token');
 
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
+  var root = org;
+  if (root < login ) {
+    root = login;
+  }
+
+  var repoUrl;
+  repoUrl = `https://github.com/${root}/${repo}/`;
+
+  console.log(`Repo URL: ${projectUrl}`);
+  console.log(`Project name: ${project}`);
+
+  // Stub output for now
+  var summary;
+  summary = "TBD";
+  core.setOutput("summary", summary);
   
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)

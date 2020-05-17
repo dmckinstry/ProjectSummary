@@ -45,7 +45,7 @@ The Summary output contains all of the per-column counts including:
   
 ## Example usage
 
-The following shows a configuration for the repo (i.e., <https://github.com/dmckinstry/ProjectSummary>) and a project named `ProjectSummaryTest`:
+The following shows a configuration for this repo (i.e., <https://github.com/dmckinstry/ProjectSummary>) and a related project named `ProjectSummaryTest`:
 
 ``` YAML
 uses: dmckinstry/ProjectSummary@v1
