@@ -131,4 +131,5 @@ function getRoot(organization, user) {
 
 module.exports.getProjectStats = getProjectStats;
 module.exports.getCardQuery = getCardQuery;
+module.exports.getProjectsQuery = getProjectsQuery;
 module.exports.getRoot = getRoot ;
