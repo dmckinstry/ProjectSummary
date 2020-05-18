@@ -17,6 +17,13 @@ function getProjectStats(org, user, repo, project, token) {
 /*
 **
 */
+function getProjectNumber(org, user, repo, token) {
+  return -999;
+}
+
+/*
+**
+*/
 function getProjectsQuery(org, user, repo) {
   var root = getRootText(org, user);
   var query = `
@@ -129,6 +136,7 @@ function getRoot(organization, user) {
   return results;
 }
 
+module.exports.getProjectNumber = getProjectNumber;
 module.exports.getProjectStats = getProjectStats;
 module.exports.getCardQuery = getCardQuery;
 module.exports.getProjectsQuery = getProjectsQuery;

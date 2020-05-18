@@ -1,7 +1,7 @@
 const target = require("../projectFunctions");
 const assert = require('assert');
 
-describe('projectFunctions', function() {
+describe('projectFunctions-Unit', function() {
 /*
 ** getRoot tests
 */
