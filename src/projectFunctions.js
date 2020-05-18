@@ -1,23 +1,25 @@
+import { graph } from "@octokit/graphql";
+
 /*
 **
 */
 function getProjectStats(org, user, repo, project, token) {
-  var projectQl = getProjectsQuery(org, user, repo);
 
-  // TO DO: Query for project number based on name
-  var projectNumber = 1;
+  var projectNumber = getProjectNumber(org, user, repo, projectName, token);
 
   var cardQl = getCardQuery(org, user, repo, projectNumber);
 
   // Real work still TBD
 
-  return graphQl;
+  return null;
 }
 
 /*
 **
 */
-function getProjectNumber(org, user, repo, token) {
+function getProjectNumber(org, user, repo, projectName, token) {
+  var projectQl = getProjectsQuery(org, user, repo);
+  //https://www.npmjs.com/package/@octokit/graphql
   return -999;
 }
 

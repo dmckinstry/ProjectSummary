@@ -11,5 +11,5 @@ describe('#getProjectNumber()', function() {
         target.getProjectNumber(null, "dmckinstry" ,"ProjectSummary", null),
         1);
       });
-  })
+  })  
 })
