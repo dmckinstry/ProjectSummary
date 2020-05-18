@@ -5,9 +5,9 @@ const expect = chai.expect;
 const chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
-const token = "70087510326a68a7565c8dfc9c21f60fa3d1ad26";
-
 describe('projectFunctions-Integration', function() {
+  const token = process.env.GITHUB_TOKEN;
+
   /*
   ** getRoot tests
   */
@@ -21,6 +21,16 @@ describe('projectFunctions-Integration', function() {
       return expect(
         target.getProjectNumber("Microsoft", null, "TypeScript", "Rolling Work Tracking", token)
       ).to.eventually.equal(5);
+    }),
+    it('Should return correct project number in known private user project', function() {
+      return expect(
+        target.getProjectNumber(null, "dmckinstry", "Tracking", "To do", token)
+      ).to.eventually.equal(1);
+    }),
+    it('Should return correct project number in known private org project', function() {
+      return expect(
+        target.getProjectNumber("GitHub", null, "DevOpsCAT", "FastTrack Engagements", token)
+      ).to.eventually.equal(1);
     })
 
     // TO DO: Add private project searches
