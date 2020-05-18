@@ -25,18 +25,39 @@ function getProjectStats(org, user, repo, project, token) {
 /*
 **
 */
-function getProjectNumber(org, user, repo, projectName, token) {
-  return new Promise((resolve, reject) => {
-    var projectQl = getProjectsQuery(org, user, repo);
-    //https://www.npmjs.com/package/@octokit/graphql
-    resolve(-999);
-    //return reject(null);
-  })
+async function getProjectNumber(org, user, repo, projectName, token) {
+  const results = await getProjectData(org, user, repo, projectName, token);
+  var projectArray;
+  if (org === null || org === "") {
+    projectArray = results.user.repository.projects.nodes;
+  } else {
+    projectArray = results.organization.repository.projects.nodes;
+  }
+  
+  var projectNumber = -999;
+  for(i=0; i<projectArray.length; i++) { 
+    if (projectArray[i].name === projectName) {
+      projectNumber = projectArray[i].number;
+      break;
+    }
+  }
+  if (projectNumber > 0)
+    return projectNumber;
+  else
+    throw("Project not found");
 }
 
-/*
-**
-*/
+async function getProjectData(org, user, repo, projectName, token) {
+  const projectQl = getProjectsQuery(org, user, repo);
+  const graphqlWithAuth = graphql.defaults({
+    headers: {
+      authorization: `token ${token}`,
+    },
+  });
+
+  return await graphqlWithAuth(projectQl);
+}
+
 function getProjectsQuery(org, user, repo) {
   var root = getRootText(org, user);
   var query = `
@@ -50,8 +71,10 @@ function getProjectsQuery(org, user, repo) {
           }
         }
       }     
-    }`;
-    return query;  
+    }
+  }`;
+
+  return query;  
 }
 
 /*
