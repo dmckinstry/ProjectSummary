@@ -59,17 +59,16 @@ describe('projectFunctions', function() {
   */
   describe('#getProjectsQuery()', function() {
     it('Should embed org is it is specified', function() {
-      assert.match(target.getProjectsQuery("myOrg", null, "myRepo", 999), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
+      assert.match(target.getProjectsQuery("myOrg", null, "myRepo"), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
     }),
     it('Should embed repo with orgs', function() {
-      assert.match(target.getProjectsQuery("myOrg", "", "myRepo", 999), /repository\s*\(\s*name:\s*\"myRepo"\s*\)/i);
+      assert.match(target.getProjectsQuery("myOrg", "", "myRepo"), /repository\s*\(\s*name:\s*\"myRepo"\s*\)/i);
     }),
     it('Should embed user is it is specified', function() {
-      assert.match(target.getProjectsQuery("", "myUser", "myOtherRepo", 999), /user\s*\(\s*login:\s*\"myUser"\s*\)/i);
+      assert.match(target.getProjectsQuery("", "myUser", "myOtherRepo"), /user\s*\(\s*login:\s*\"myUser"\s*\)/i);
     }),
     it('Should embed repo with users', function() {
-      assert.match(target.getProjectsQuery(null, "myUser", "myOtherRepo", 999), /repository\s*\(\s*name:\s*\"myOtherRepo"\s*\)/i);
+      assert.match(target.getProjectsQuery(null, "myUser", "myOtherRepo"), /repository\s*\(\s*name:\s*\"myOtherRepo"\s*\)/i);
     })
   })
 })
-

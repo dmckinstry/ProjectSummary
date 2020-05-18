@@ -21,7 +21,7 @@ function getProjectsQuery(org, user, repo) {
   var root = getRootText(org, user);
   var query = `
   {
-    ${root.key}(login: "${root.Value}") {
+    ${root.Key}(login: "${root.Value}") {
       repository(name: "${repo}") {
         projects(first:100) {
           nodes {
