@@ -52,6 +52,24 @@ describe('projectFunctions', function() {
     it('Should embed project number with users', function() {
       assert.match(target.getCardQuery(null, "myUser", "myRepo", 999), /project\s*\(\s*number:\s*999\s*\)/i);
     })
+  }),
+
+  /*
+  ** getProjectQuery tests
+  */
+  describe('#getProjectQuery()', function() {
+    it('Should embed org is it is specified', function() {
+      assert.match(target.getProjectQuery("myOrg", null, "myRepo", 999), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
+    }),
+    it('Should embed repo with orgs', function() {
+      assert.match(target.getProjectQuery("myOrg", "", "myRepo", 999), /repository\s*\(\s*name:\s*\"myRepo"\s*\)/i);
+    }),
+    it('Should embed user is it is specified', function() {
+      assert.match(target.getProjectQuery("", "myUser", "myOtherRepo", 999), /user\s*\(\s*login:\s*\"myUser"\s*\)/i);
+    }),
+    it('Should embed repo with users', function() {
+      assert.match(target.getProjectQuery(null, "myUser", "myOtherRepo", 999), /repository\s*\(\s*name:\s*\"myOtherRepo"\s*\)/i);
+    })
   })
 })
 

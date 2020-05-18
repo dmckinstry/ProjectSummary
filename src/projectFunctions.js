@@ -22,7 +22,7 @@ function getProjectsQuery(org, user, repo) {
   var query = `
   {
     ${root.key}(login: "${root.Value}") {
-      repository(name: "ProjectSummary") {
+      repository(name: "${repo}") {
         projects(first:100) {
           nodes {
             number
