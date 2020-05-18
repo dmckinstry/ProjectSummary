@@ -1,11 +1,19 @@
-import { graph } from "@octokit/graphql";
+const { graphql } = require("@octokit/graphql");
 
 /*
 **
 */
 function getProjectStats(org, user, repo, project, token) {
 
-  var projectNumber = getProjectNumber(org, user, repo, projectName, token);
+  var projectNumberPromise = getProjectNumber(org, user, repo, projectName, token);
+  var projectNumber = -888;
+  projectNumberPromise.then( function(result) {
+    projectNumber = result;
+  }, function(err) {
+    // Handle error
+  })
+
+
 
   var cardQl = getCardQuery(org, user, repo, projectNumber);
 
@@ -18,9 +26,12 @@ function getProjectStats(org, user, repo, project, token) {
 **
 */
 function getProjectNumber(org, user, repo, projectName, token) {
-  var projectQl = getProjectsQuery(org, user, repo);
-  //https://www.npmjs.com/package/@octokit/graphql
-  return -999;
+  return new Promise((resolve, reject) => {
+    var projectQl = getProjectsQuery(org, user, repo);
+    //https://www.npmjs.com/package/@octokit/graphql
+    resolve(-999);
+    //return reject(null);
+  })
 }
 
 /*
