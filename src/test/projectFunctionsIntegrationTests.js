@@ -6,7 +6,7 @@ const chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
 describe('projectFunctions-Integration', function() {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.TOKEN;
 
   /*
   ** getRoot tests
