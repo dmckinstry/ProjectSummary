@@ -2,7 +2,7 @@
 **
 */
 function getProjectStats(org, user, repo, project, token) {
-  var projectQl = "";
+  var projectQl = getProjectsQuery(org, user, repo);
 
   // TO DO: Query for project number based on name
   var projectNumber = 1;
@@ -14,38 +14,35 @@ function getProjectStats(org, user, repo, project, token) {
   return graphQl;
 }
 
+/*
+**
+*/
 function getProjectsQuery(org, user, repo) {
-var query = 
-`  {
-  user(login: "dmckinstry") {
-    repository(name: "ProjectSummary") {
-      projects(first:100) {
-        nodes {
-          number
-          name
+  var root = getRootText(org, user);
+  var query = `
+  {
+    ${root.key}(login: "${root.Value}") {
+      repository(name: "ProjectSummary") {
+        projects(first:100) {
+          nodes {
+            number
+            name
+          }
         }
-      }
-    }     
-  }`;
-  
+      }     
+    }`;
+    return query;  
 }
 
 /*
 ** getCardQuery - Create GitHub GraphQL to retrieve card and issue info related to projects
 */
 function getCardQuery(org, user, repo, projectNumber) {
-  var rootKey, rootValue;
-  if ((org !== null) && (org !== "")) {
-    rootKey = "organization";
-    rootValue = org;
-  } else {
-    rootKey = "user";
-    rootValue = user;
-  }
+  var root = getRootText(org, user);
 
   var ql = `
   {
-    ${rootKey}(login: "${rootValue}") {
+    ${root.Key}(login: "${root.Value}") {
       repository(name: "${repo}") {
         project(number: ${projectNumber}) {
           name
@@ -95,6 +92,22 @@ function getCardQuery(org, user, repo, projectNumber) {
   }`
 
   return ql;
+}
+
+/*
+**
+*/
+function getRootText(org, user) {
+  var root = {};
+  if ((org !== null) && (org !== "")) {
+    root.Key = "organization";
+    root.Value = org;
+  }
+  else {
+    root.Key = "user";
+    root.Value = user;
+  }
+  return root;
 }
 
 /*
