@@ -14,8 +14,24 @@ function getProjectStats(org, user, repo, project, token) {
   return graphQl;
 }
 
+function getProjectsQuery(org, user, repo) {
+var query = 
+`  {
+  user(login: "dmckinstry") {
+    repository(name: "ProjectSummary") {
+      projects(first:100) {
+        nodes {
+          number
+          name
+        }
+      }
+    }     
+  }`;
+  
+}
+
 /*
-** getQueryText - Create GitHub GraphQL to retrieve card and issue info related to projects
+** getCardQuery - Create GitHub GraphQL to retrieve card and issue info related to projects
 */
 function getCardQuery(org, user, repo, projectNumber) {
   var rootKey, rootValue;

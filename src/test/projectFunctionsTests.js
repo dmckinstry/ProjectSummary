@@ -31,9 +31,9 @@ describe('projectFunctions', function() {
   }),
 
 /*
-** getQueryText tests
+** getCardQuery tests
 */
-  describe('#getQueryText()', function() {
+  describe('#getCardQuery()', function() {
     it('Should embed org is it is specified', function() {
       assert.match(target.getCardQuery("myOrg", null, "myRepo", 999), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
     }),
