@@ -31,6 +31,11 @@ describe('projectFunctions-Integration', function() {
       return expect(
         target.getProjectNumber("GitHub", null, "DevOpsCAT", "FastTrack Engagements", token)
       ).to.eventually.equal(1);
+    }),
+    it('Nonexistent project should throw exception', function() {
+      return expect(
+        target.getProjectNumber(null, "dmckinstry", "NoSuchRepo", "NoSuchProject", token)
+      ).to.be.eventually.rejectedWith(Error);
     })
   }),
 
@@ -38,10 +43,18 @@ describe('projectFunctions-Integration', function() {
   ** getProjectStats tests
   */
   describe('#getProjectStats()', function() {
-    it('Should return statistics known public user project', function() {
-      return expect(
-        target.getProjectStats(null, "dmckinstry", "ProjectSummary", "ProjectSummaryTest", token)
-      ).to.eventually.equal(1);
+    it('Should return statistics for a known public user project', async() => {
+      const results = await target.getProjectStats(null, "dmckinstry", "ProjectSummary", "ProjectSummaryTest", token);
+
+      // TO DO: Decompose "results" into individual statistics
+      // Expect:
+      // Array of columns; for each column
+      //  - ColumnName
+      //  - Key(Total) Value(Count)
+      //  - Key(Label) Value(Array[Key(<label>),Value(Count)]
+      //  - Key(Assignee) Value(Array[Key(<assignee>),Value(Count)]
+
+      expect(results.length, "No columns found").to.be.greaterThan(0);
     })
   }) 
 })
