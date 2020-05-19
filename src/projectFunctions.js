@@ -3,23 +3,14 @@ const { graphql } = require("@octokit/graphql");
 /*
 **
 */
-function getProjectStats(org, user, repo, project, token) {
+async function getProjectStats(org, user, repo, project, token) {
 
-  var projectNumberPromise = getProjectNumber(org, user, repo, projectName, token);
-  var projectNumber = -888;
-  projectNumberPromise.then( function(result) {
-    projectNumber = result;
-  }, function(err) {
-    // Handle error
-  })
-
-
-
+  var projectNumber = await getProjectNumber(org, user, repo, project, token);
   var cardQl = getCardQuery(org, user, repo, projectNumber);
 
   // Real work still TBD
 
-  return null;
+  return 1;
 }
 
 /*

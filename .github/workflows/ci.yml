@@ -10,6 +10,8 @@ jobs:
   test-and-tag:
     runs-on: ubuntu-latest
     name: Test action code and tag V.Latest label
+    env:
+      TOKEN: ${{ secrets.token }}
     steps:
     - uses: actions/checkout@v2
 

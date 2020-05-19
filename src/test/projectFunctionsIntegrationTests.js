@@ -9,7 +9,7 @@ describe('projectFunctions-Integration', function() {
   const token = process.env.TOKEN;
 
   /*
-  ** getRoot tests
+  ** getProjectNumber tests
   */
   describe('#getProjectNumber()', function() {
     it('Should return correct project number in known public user project', function() {
@@ -32,8 +32,16 @@ describe('projectFunctions-Integration', function() {
         target.getProjectNumber("GitHub", null, "DevOpsCAT", "FastTrack Engagements", token)
       ).to.eventually.equal(1);
     })
+  }),
 
-    // TO DO: Add private project searches
-
-  })
+  /*
+  ** getProjectStats tests
+  */
+  describe('#getProjectStats()', function() {
+    it('Should return statistics known public user project', function() {
+      return expect(
+        target.getProjectStats(null, "dmckinstry", "ProjectSummary", "ProjectSummaryTest", token)
+      ).to.eventually.equal(1);
+    })
+  }) 
 })
