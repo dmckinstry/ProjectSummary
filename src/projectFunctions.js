@@ -5,8 +5,55 @@ const { graphql } = require("@octokit/graphql");
 */
 async function getProjectStats(org, user, repo, project, token) {
 
-  //var projectNumber = await getProjectNumber(org, user, repo, project, token);
-  //var cardQl = getCardQuery(org, user, repo, projectNumber);
+  var projectNumber = await getProjectNumber(org, user, repo, project, token);
+  var cardQl = getCardQuery(org, user, repo, projectNumber);
+
+  const graphqlWithAuth = graphql.defaults({
+    headers: {
+      authorization: `token ${token}`,
+    },
+  });
+  
+  var results = await graphqlWithAuth(cardQl);
+  var summary = summarizeQueryResults(org, project, results);
+
+  return summary;
+}
+
+/*
+**
+*/
+function summarizeQueryResults( org, projectName, queryResults ) {
+  var rootNode;
+  if (org === null || org ==="") {
+    rootNode = queryResults.user.repository;
+  } else {
+    rootNode = queryResults.organization.repository;
+  }
+
+  // Build list of columns with totals
+  var columns = new Array();
+  rootNode.project.columns.nodes.forEach(column => {
+    // Capture column name and total card count
+    var newColumn = { Column: column.name, Statistics: [] };
+    newColumn.Statistics.push( {Key: 1, Value: column.cards.totalCount });
+    columns.push(newColumn);
+  })
+
+  // Loop through all issues
+  var issues = rootNode.issues.nodes;
+  issues.forEach( function(issue) {
+    issue.projectCards.nodes.forEach( function( card ) {
+      if (card.project.name === projectName ) {
+        console.log(`Found card titled ${issue.title}`);
+        // TO DO: Call method to record all labels in the appropriate column
+        // TO DO: Call method to record all assignees in the appropriate column
+        console.log(`... in column ${card.column.name}`);
+        console.log(`... with ${issue.assignees.nodes.length} assignees`);
+        console.log(`... and ${issue.labels.nodes.length} labels`);
+      }
+    })
+  })
 
   // Expect:
   // Array of columns; for each column
@@ -15,23 +62,20 @@ async function getProjectStats(org, user, repo, project, token) {
   //  - Key(Label) Value(Array[Key(<label>),Value(Count)]
   //  - Key(Assignee) Value(Array[Key(<assignee>),Value(Count)]
 
-  const keyEnum = { Total:1, Label:2, Assignee:4 };
+  // const keyEnum = { Total:1, Label:2, Assignee:4 };
+  // var results = [
+  //   { Column: "New", Statistics: [
+  //     { Key: keyEnum.Total, Value: 0 }]},
+  //   { Column: "Doing", Statistics: [
+  //     { Key: keyEnum.Total, Value: 3 }, 
+  //     { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1}, { Key: "Label 2", Value: 3 }]}]},
+  //   { Column: "Done", Statistics: [
+  //     { Key: keyEnum.Total, Value: 3 },
+  //     { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1 }]},
+  //     { Key: keyEnum.Assignee, Value: [{ Key: "dmckinstry", Value: 1 }]}]}
+  // ];
 
-  var results = [
-    { Column: "New", Statistics: [
-      { Key: keyEnum.Total, Value: 0 }]},
-    { Column: "Doing", Statistics: [
-      { Key: keyEnum.Total, Value: 3 }, 
-      { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1}, { Key: "Label 2", Value: 3 }]}]},
-    { Column: "Done", Statistics: [
-      { Key: keyEnum.Total, Value: 3 },
-      { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1 }]},
-      { Key: keyEnum.Assignee, Value: [{ Key: "dmckinstry", Value: 1 }]}]}
-  ];
-
-  console.log(results);
-
-  return results;
+  return columns;
 }
 
 /*
@@ -103,7 +147,9 @@ function getCardQuery(org, user, repo, projectNumber) {
           name
           columns(first: 100) {
             nodes {
+              name
               cards(first: 100) {
+                totalCount
                 nodes {
                   content {__typename}
                   note
@@ -189,3 +235,4 @@ module.exports.getProjectStats = getProjectStats;
 module.exports.getCardQuery = getCardQuery;
 module.exports.getProjectsQuery = getProjectsQuery;
 module.exports.getRoot = getRoot ;
+module.exports.summarizeQueryResults = summarizeQueryResults;

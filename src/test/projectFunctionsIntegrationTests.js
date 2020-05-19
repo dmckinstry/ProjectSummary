@@ -48,7 +48,6 @@ describe('Integration Tests', function() {
     })
   }), 
 
-
   /*
   ** getProjectNumber tests
   */
