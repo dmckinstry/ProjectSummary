@@ -5,12 +5,33 @@ const { graphql } = require("@octokit/graphql");
 */
 async function getProjectStats(org, user, repo, project, token) {
 
-  var projectNumber = await getProjectNumber(org, user, repo, project, token);
-  var cardQl = getCardQuery(org, user, repo, projectNumber);
+  //var projectNumber = await getProjectNumber(org, user, repo, project, token);
+  //var cardQl = getCardQuery(org, user, repo, projectNumber);
 
-  // Real work still TBD
+  // Expect:
+  // Array of columns; for each column
+  //  - ColumnName
+  //  - Key(Total) Value(Count)
+  //  - Key(Label) Value(Array[Key(<label>),Value(Count)]
+  //  - Key(Assignee) Value(Array[Key(<assignee>),Value(Count)]
 
-  return 1;
+  const keyEnum = { Total:1, Label:2, Assignee:4 };
+
+  var results = [
+    { Column: "New", Statistics: [
+      { Key: keyEnum.Total, Value: 0 }]},
+    { Column: "Doing", Statistics: [
+      { Key: keyEnum.Total, Value: 3 }, 
+      { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1}, { Key: "Label 2", Value: 3 }]}]},
+    { Column: "Done", Statistics: [
+      { Key: keyEnum.Total, Value: 3 },
+      { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1 }]},
+      { Key: keyEnum.Assignee, Value: [{ Key: "dmckinstry", Value: 1 }]}]}
+  ];
+
+  console.log(results);
+
+  return results;
 }
 
 /*

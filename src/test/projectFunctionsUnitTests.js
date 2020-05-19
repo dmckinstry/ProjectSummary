@@ -1,11 +1,11 @@
 const target = require("../projectFunctions");
 const assert = require('assert');
 
-describe('projectFunctions-Unit', function() {
+describe('Unit Tests', function() {
 /*
 ** getRoot tests
 */
-  describe('#getRoot()', function() {
+  describe('getRoot()', function() {
     it('Should throw an exception if both are null', function() {
       try {
         var fail = target.getRoot(null, null);
@@ -33,7 +33,7 @@ describe('projectFunctions-Unit', function() {
 /*
 ** getCardQuery tests
 */
-  describe('#getCardQuery()', function() {
+  describe('getCardQuery()', function() {
     it('Should embed org is it is specified', function() {
       assert.match(target.getCardQuery("myOrg", null, "myRepo", 999), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
     }),
@@ -57,7 +57,7 @@ describe('projectFunctions-Unit', function() {
   /*
   ** getProjectQuery tests
   */
-  describe('#getProjectsQuery()', function() {
+  describe('getProjectsQuery()', function() {
     it('Should embed org is it is specified', function() {
       assert.match(target.getProjectsQuery("myOrg", null, "myRepo"), /organization\s*\(\s*login:\s*\"myOrg"\s*\)/i);
     }),
