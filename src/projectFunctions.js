@@ -46,14 +46,25 @@ function summarizeQueryResults( org, projectName, queryResults ) {
     issue.projectCards.nodes.forEach( function( card ) {
       if (card.project.name === projectName ) {
         console.log(`Found card titled ${issue.title}`);
-        // TO DO: Call method to record all labels in the appropriate column
-        // TO DO: Call method to record all assignees in the appropriate column
-        console.log(`... in column ${card.column.name}`);
-        console.log(`... with ${issue.assignees.nodes.length} assignees`);
-        console.log(`... and ${issue.labels.nodes.length} labels`);
+        updateStatistics(2, card.column.name, issue.labels.nodes, columns);
+        updateStatistics(4, card.column.name, issue.assignees.nodes, columns);
       }
     })
   })
+
+  return columns;
+}
+
+function updateStatistics(statType, columnName, searchNodes, statisticsArray) {
+  var staticName;
+  if (statType === 2) {
+    staticName = "Label"
+  } else {
+    staticName = "Assignee"
+  }
+
+  console.log(`... stat ${staticName} in column ${columnName} searching ${searchNodes.length} nodes`);
+}
 
   // Expect:
   // Array of columns; for each column
@@ -75,8 +86,8 @@ function summarizeQueryResults( org, projectName, queryResults ) {
   //     { Key: keyEnum.Assignee, Value: [{ Key: "dmckinstry", Value: 1 }]}]}
   // ];
 
-  return columns;
-}
+
+
 
 /*
 **

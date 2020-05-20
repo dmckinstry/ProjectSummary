@@ -250,8 +250,8 @@ describe('summarizeQueryResults()', function() {
     })
 
     expect(totalCount, "Column and total counts don't match").to.equal(results.length);
-    expect(labelCount).is.greaterThan(0);
-    expect(assigneeCount).is.greaterThan(0);
+    expect(labelCount).is.greaterThan(0, "No labels found");
+    expect(assigneeCount).is.greaterThan(0, "No assignees found");
   })
 }),
 
