@@ -240,9 +240,31 @@ function getRoot(organization, user) {
   return results;
 }
 
+/*
+**
+*/ 
+function convertResultsToList( results ) {
+  var markdown = "";
+  results.forEach( function( column ) {
+    markdown += `- ${column.Column}:\n`;
+    column.Statistics.forEach( function( statArray ) {
+      if (statArray.Key === "Total") {
+        markdown += `  - Total: ${statArray.Value}\n`;
+      } else {
+        markdown += `  - ${statArray.Key}: ${statArray.Value.length}`;
+        statArray.Value.forEach( function( stat ) {
+          markdown += `    - ${stat.Key}: ${stat.Value}\n`;
+        })
+      }
+    })
+  })
+  return markdown;
+}
+
 module.exports.getProjectNumber = getProjectNumber;
 module.exports.getProjectStats = getProjectStats;
 module.exports.getCardQuery = getCardQuery;
 module.exports.getProjectsQuery = getProjectsQuery;
 module.exports.getRoot = getRoot ;
 module.exports.summarizeQueryResults = summarizeQueryResults;
+module.exports.convertResultsToList = convertResultsToList;

@@ -34,7 +34,7 @@ Please do *not* store your secrets in plan text. Instead, use GitHub Secrets or 
 
 ## Outputs
 
-### `Summary`
+### `summary`
 
 The Summary output contains all of the per-column counts including:
 
@@ -42,7 +42,19 @@ The Summary output contains all of the per-column counts including:
 - Cards per assignee per column
 - Cards per label per column
 - Issue-based cards per column
-  
+
+### `markdownList`
+
+Summary data presented as a markdown bullet list.  For example:
+
+- To do:
+  - Total: 2
+  - Label:
+    - enhancement: 1
+    - bug: 1
+  - Done:
+    - Total: 0
+
 ## Example usage
 
 The following shows a configuration for this repo (i.e., <https://github.com/dmckinstry/ProjectSummary>) and a related project named `ProjectSummaryTest`:
@@ -53,10 +65,5 @@ with:
   login: 'dmckinstry'
   repo: 'ProjectSummary'
   project: 'ProjectSummaryTest'
-  token: ${Some Secret value}
+  token: ${ secrets.MyGitHubSecurityToken}
 ```
-
-TO DO:
-
-- Add docs on the security token
-- Add output for the example

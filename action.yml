@@ -20,7 +20,9 @@ inputs:
 outputs:
   summary : # Data structure including resulting per-column card counts
     description: Per-column card counts (Totals, per-user and per-label).
-
+  markdownList : # Indented bullet list of results
+    description: Bullet list of columns, Summary types, and individual counts
+    
 runs:
   using: 'node12'
   main: 'src/index.js'

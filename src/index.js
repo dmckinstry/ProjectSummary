@@ -23,7 +23,8 @@ try {
     })
     .then(( response ) => {
       console.debug(`Results: ${response}`);
-      core.setOutput("summary", response);    
+      core.setOutput("summary", response);
+      core.setOutput("markdownList", projectFunctions.convertResultsToList( response ));    
     })
   
   // Get the JSON webhook payload for the event that triggered the workflow
