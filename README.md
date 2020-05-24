@@ -1,5 +1,7 @@
 # ProjectSummary Action
 
+![ProjectSummary-CI](https://github.com/dmckinstry/ProjectSummary/workflows/ProjectSummary-CI/badge.svg) ![ProjectSummary-Test](https://github.com/dmckinstry/ProjectSummary/workflows/ProjectSummary-Test/badge.svg)
+
 This action queries a specified project board in GitHub and returns basic statistics including:
 
 - Total number of cards in each column
@@ -10,23 +12,23 @@ Note that the total cards will not necessarily be equal to sums of any other sta
 
 ## Inputs
 
-### `Org`
+### `org`
 
 GitHub organization hosting the project. Either the org or login is required.
 
-### `Login`
+### `login`
 
 GitHub user account hosting the project. Either the org or login is required.
 
-### `Repo`
+### `repo`
 
 GitHub repository hosting the project. This field is required.
 
-### `Project`
+### `project`
 
 The name of the Github project for which to retrieve the statics. This field is required.
 
-### `Token`
+### `token`
 
 The security token... TO DO:  Info.
 
