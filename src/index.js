@@ -16,7 +16,7 @@ try {
   console.debug(`Repo URL: ${repoUrl}`);
   console.debug(`Project name: ${project}`);
 
-  var summary = projectFunctions.getProjectStats(org, login, repo, project, token);
+  var summary = await projectFunctions.getProjectStats(org, login, repo, project, token);
   console.debug(`Results: ${summary}`);
   core.setOutput("summary", summary);
   
