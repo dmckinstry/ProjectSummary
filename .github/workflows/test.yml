@@ -32,5 +32,5 @@ jobs:
           echo '```'                                          >> test-results.md
           git add test-results.md
           git stage test-results.md
-          git commit "Updated integration test results per ${{ github.run_id }}"
+          git commit . -m "Updated integration test results per ${{ github.run_id }}"
           git push
