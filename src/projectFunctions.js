@@ -45,7 +45,7 @@ function summarizeQueryResults( org, projectName, queryResults ) {
   issues.forEach( function(issue) {
     issue.projectCards.nodes.forEach( function( card ) {
       if (card.project.name === projectName ) {
-        console.log(`Found card titled ${issue.title}`);
+        console.debug(`Found card titled ${issue.title}`);
         updateStatistics("Label", card.column.name, issue.labels.nodes, columns);
         updateStatistics("Assignee", card.column.name, issue.assignees.nodes, columns);
       }
@@ -85,31 +85,8 @@ function updateStatistics(statType, columnName, issues, outputArray) {
     }
   })
 
-  console.log(`... stat ${statType} in column ${columnName} searching ${issues.length} issues`);
+  console.debug(`... stat ${statType} in column ${columnName} searching ${issues.length} issues`);
 }
-
-  // Expect:
-  // Array of columns; for each column
-  //  - ColumnName
-  //  - Key(Total) Value(Count)
-  //  - Key(Label) Value(Array[Key(<label>),Value(Count)]
-  //  - Key(Assignee) Value(Array[Key(<assignee>),Value(Count)]
-
-  // const keyEnum = { Total:1, Label:2, Assignee:4 };
-  // var results = [
-  //   { Column: "New", Statistics: [
-  //     { Key: keyEnum.Total, Value: 0 }]},
-  //   { Column: "Doing", Statistics: [
-  //     { Key: keyEnum.Total, Value: 3 }, 
-  //     { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1}, { Key: "Label 2", Value: 3 }]}]},
-  //   { Column: "Done", Statistics: [
-  //     { Key: keyEnum.Total, Value: 3 },
-  //     { Key: keyEnum.Label, Value: [{ Key: "Label1", Value: 1 }]},
-  //     { Key: keyEnum.Assignee, Value: [{ Key: "dmckinstry", Value: 1 }]}]}
-  // ];
-
-
-
 
 /*
 **
