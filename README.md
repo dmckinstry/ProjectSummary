@@ -73,3 +73,7 @@ with:
   project: 'ProjectSummaryTest'
   token: ${ secrets.MyGitHubSecurityToken}
 ```
+
+# Disclaimer
+
+I used this action to build my experience in Node.JS. I consider myself an experienced developer but still only a novice Node developer. As such, everything here seems to work but I'm certain real Node developers will see many "opportunities" to improve this code. I'm happy to accept PRs, and feel free to reuse this code - but use at your own risk :). 
