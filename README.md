@@ -45,6 +45,8 @@ The Summary output contains all of the per-column counts including:
 - Cards per label per column
 - Issue-based cards per column
 
+Reference sample from the latest test run: <https://github.com/dmckinstry/ProjectSummary/blob/master/test-results.md#markdown-list>
+
 ### `markdownList`
 
 Summary data presented as a markdown bullet list.  For example:
@@ -56,6 +58,8 @@ Summary data presented as a markdown bullet list.  For example:
     - bug: 1
   - Done:
     - Total: 0
+
+Reference sample from the latest test run: <https://github.com/dmckinstry/ProjectSummary/blob/master/test-results.md#json-results>
 
 ## Example usage
 
