@@ -251,7 +251,7 @@ function convertResultsToList( results ) {
       if (statArray.Key === "Total") {
         markdown += `  - Total: ${statArray.Value}\n`;
       } else {
-        markdown += `  - ${statArray.Key}: ${statArray.Value.length}`;
+        markdown += `  - ${statArray.Key}: ${statArray.Value.length}\n`;
         statArray.Value.forEach( function( stat ) {
           markdown += `    - ${stat.Key}: ${stat.Value}\n`;
         })

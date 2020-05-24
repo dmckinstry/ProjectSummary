@@ -62,8 +62,8 @@ describe('Unit Tests', function() {
       var results = target.summarizeQueryResults(null, "ProjectSummaryTest", graphResults);
       var markdownResults = target.convertResultsToList( results );
 
-      expect(markdownResults).to.match( new RegExp("- Total:"));
-      })
+      expect(markdownResults).to.match( /- Total:/i);
+    })
   }),
 
   /*
