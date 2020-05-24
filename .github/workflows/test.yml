@@ -3,16 +3,11 @@ name: ProjectSummary-Test
 on:
   project_card:
     types: [ created, moved, converted, edited, deleted ]
-    name: Test action code and tag V.Latest label
-    env:
-      TOKEN: ${{ secrets.token }}
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    # - uses: actions/checkout@v2
     - name: Analyze project
       id: analyze
       uses: dmckinstry/ProjectSummary@v.ci
@@ -20,7 +15,7 @@ jobs:
         login: dmckinstry
         repo: ProjectSummary
         project: ProjectSummaryTest
-        token: TBD
+        token: ${{ secrets.token }}
 
     # Project column summary
     - name: Get the output
