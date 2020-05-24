@@ -19,4 +19,7 @@ jobs:
 
     # Project column summary
     - name: Get the output
-      run: echo "The output was ${{ steps.analyze.outputs.summary }}"
+      run: |
+        echo "The output was ${{ steps.analyze.outputs.summary }}"
+        echo "Summarized as markdown:"
+        echo ${{ steps.analyze.outputs.markdownList
