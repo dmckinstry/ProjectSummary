@@ -237,14 +237,14 @@ describe('summarizeQueryResults()', function() {
       expect(column.Column, "Undefined column name").is.not.undefined;
       expect(column.Column, "Empty column name").is.not.empty;
       column.Statistics.forEach( function(stat) {
-        if (stat.Key === 1) { // Don't like this - enum isn't an enum
+        if (stat.Key === "Total") {
           totalCount++
-        } else if (stat.Key === 2) {
+        } else if (stat.Key === "Label") {
           labelCount++;
-        } else if (stat.Key === 4) {
+        } else if (stat.Key === "Assignee") {
           assigneeCount++;
         } else {
-          expect.fail("Unrecognized statistic type");
+          expect.fail(`Unrecognized statistic type ${stat.Key}`);
         }
       })
     })
@@ -252,6 +252,20 @@ describe('summarizeQueryResults()', function() {
     expect(totalCount, "Column and total counts don't match").to.equal(results.length);
     expect(labelCount).is.greaterThan(0, "No labels found");
     expect(assigneeCount).is.greaterThan(0, "No assignees found");
+
+    results.forEach( function( column ) {
+      console.log( column.Column );
+      column.Statistics.forEach( function( statArray ) {
+        if (statArray.Key === "Total") {
+          console.log(`- Total: ${statArray.Value}`)
+        } else {
+          console.log(`- ${statArray.Key}: ${statArray.Value.length}`)
+          statArray.Value.forEach( function( stat ) {
+            console.log(`  - ${stat.Key}: ${stat.Value}`)
+          })
+        }
+      })
+    })
   })
 }),
 

@@ -14,27 +14,22 @@ describe('Integration Tests', function() {
     it('Should return statistics for a known public user project', async() => {
       const results = await target.getProjectStats(null, "dmckinstry", "ProjectSummary", "ProjectSummaryTest", token);
 
-      // TO DO: Decompose "results" into individual statistics
-      // Expect:
-      // Array of columns; for each column
-      //  - ColumnName
-      //  - Key(Total) Value(Count)
-      //  - Key(Label) Value(Array[Key(<label>),Value(Count)]
-      //  - Key(Assignee) Value(Array[Key(<assignee>),Value(Count)]
-
+      // Verify that there are one or more columns in the results
       expect(results.length, "No columns found").to.be.greaterThan(0);
       var totalCount = 0;
       var labelCount = 0;
       var assigneeCount = 0;
+
+      // Count all individual stats to verify that we get at least one of each
       results.forEach( function(column) {
         expect(column.Column, "Undefined column name").is.not.undefined;
         expect(column.Column, "Empty column name").is.not.empty;
         column.Statistics.forEach( function(stat) {
-          if (stat.Key === 1) { // Don't like this - enum isn't an enum
+          if (stat.Key === "Total") { // Don't like this - enum isn't an enum
             totalCount++
-          } else if (stat.Key === 2) {
+          } else if (stat.Key === "Label") {
             labelCount++;
-          } else if (stat.Key === 4) {
+          } else if (stat.Key === "Assignee") {
             assigneeCount++;
           } else {
             expect.fail("Unrecognized statistic type");

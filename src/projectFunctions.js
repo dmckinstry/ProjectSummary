@@ -36,7 +36,7 @@ function summarizeQueryResults( org, projectName, queryResults ) {
   rootNode.project.columns.nodes.forEach(column => {
     // Capture column name and total card count
     var newColumn = { Column: column.name, Statistics: [] };
-    newColumn.Statistics.push( {Key: 1, Value: column.cards.totalCount });
+    newColumn.Statistics.push( {Key: "Total", Value: column.cards.totalCount });
     columns.push(newColumn);
   })
 
@@ -46,8 +46,8 @@ function summarizeQueryResults( org, projectName, queryResults ) {
     issue.projectCards.nodes.forEach( function( card ) {
       if (card.project.name === projectName ) {
         console.log(`Found card titled ${issue.title}`);
-        updateStatistics(2, card.column.name, issue.labels.nodes, columns);
-        updateStatistics(4, card.column.name, issue.assignees.nodes, columns);
+        updateStatistics("Label", card.column.name, issue.labels.nodes, columns);
+        updateStatistics("Assignee", card.column.name, issue.assignees.nodes, columns);
       }
     })
   })
@@ -55,15 +55,37 @@ function summarizeQueryResults( org, projectName, queryResults ) {
   return columns;
 }
 
-function updateStatistics(statType, columnName, searchNodes, statisticsArray) {
-  var staticName;
-  if (statType === 2) {
-    staticName = "Label"
-  } else {
-    staticName = "Assignee"
-  }
+// (Assignee||Label), Column, array of (A||L), array of columns
+function updateStatistics(statType, columnName, issues, outputArray) {
+  // Find the column
+  var trackColumn = outputArray.find( function( column ) {
+    return (column.Column === columnName);
+  })
 
-  console.log(`... stat ${staticName} in column ${columnName} searching ${searchNodes.length} nodes`);
+  // Find the stat type subarray in the column array (Label or Assignee)
+  var trackStatType = trackColumn.Statistics.find( function( stat ) {
+    return (stat.Key === statType);
+  })
+  if (trackStatType === undefined) {
+    trackStatType = { Key: statType, Value: [] };
+    trackColumn.Statistics.push(trackStatType);
+  }
+  
+  // Loop through all isues items (assignees||labels)
+  issues.forEach( function( item ) {
+    // Find the specific label or assignee in the outputArray
+    var trackStat = trackStatType.Value.find( function( value ) {
+      return (value.Key === item.name);
+    })
+    if (trackStat === undefined) {
+      trackStat = { Key: item.name, Value: 1 };
+      trackStatType.Value.push(trackStat);
+    } else {
+      trackStat.Value++;
+    }
+  })
+
+  console.log(`... stat ${statType} in column ${columnName} searching ${issues.length} issues`);
 }
 
   // Expect:
