@@ -32,5 +32,7 @@ jobs:
           echo '```'                                          >> test-results.md
           git add test-results.md
           git stage test-results.md
+          git config --global user.email "${{ secrets.email }}"
+          git config --global user.name "${{ secrets.login }}"
           git commit . -m "Updated integration test results per ${{ github.run_id }}"
           git push
