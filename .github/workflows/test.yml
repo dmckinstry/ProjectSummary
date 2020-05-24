@@ -23,13 +23,13 @@ jobs:
       - uses: actions/checkout@v2.1.1
       - name: Capture test results
         run: |
-          echo "# Test Results\n"                             > test-results.md
-          echo "## Markdown List\n"                           >> test-results.md
-          echo "${{ steps.analyze.outputs.markdownList }}\n"  >> test-results.md
-          echo "## JSON Results\n"                           >> test-results.md
-          echo "``` JSON\n"                                   >> test-results.md
-          echo "${{ steps.analyze.outputs.summary }}\n"       >> test-results.md
-          echo "```"                                          >> test-results.md
+          echo '# Test Results\n'                             > test-results.md
+          echo '## Markdown List\n'                           >> test-results.md
+          echo '${{ steps.analyze.outputs.markdownList }}\n'  >> test-results.md
+          echo '## JSON Results\n'                            >> test-results.md
+          echo '``` JSON\n'                                   >> test-results.md
+          echo '${{ steps.analyze.outputs.summary }}\n'       >> test-results.md
+          echo '```'                                          >> test-results.md
           git add test-results.md
           git stage test-results.md
           git commit "Updated integration test results per ${{ github.run_id }}"
