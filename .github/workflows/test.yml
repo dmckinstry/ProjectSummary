@@ -3,6 +3,9 @@ name: ProjectSummary-Test
 on:
   project_card:
     types: [ created, moved, converted, edited, deleted ]
+    name: Test action code and tag V.Latest label
+    env:
+      TOKEN: ${{ secrets.token }}
 
 jobs:
   test:
@@ -18,7 +21,7 @@ jobs:
         repo: ProjectSummary
         project: ProjectSummaryTest
         token: TBD
-        
+
     # Project column summary
     - name: Get the output
       run: echo "The output was ${{ steps.analyze.outputs.summary }}"
