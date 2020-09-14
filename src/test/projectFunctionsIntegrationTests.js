@@ -64,7 +64,7 @@ describe('Integration Tests', function() {
     }),
     it('Should return correct project number in known private org project', function() {
       return expect(
-        target.getProjectNumber("GitHub", null, "DevOpsCAT", "FastTrack Engagements", token)
+        target.getProjectNumber("GitHub", null, "DevOpsCAT", "FastTrack Engagements (Legacy)", token)
       ).to.eventually.equal(1);
     }),
     it('Nonexistent project should throw exception', function() {
