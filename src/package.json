@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/dmckinstry/ProjectSummary#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^2.2.0",
     "@octokit/graphql": "^4.4.0",
     "chai": "^4.2.0",
